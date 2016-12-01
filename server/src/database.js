@@ -208,13 +208,24 @@ function getCollection(collectionName) {
 module.exports.getCollection = getCollection;
 
 /**
- * Reset the database.
- */
-function resetDatabase() {
-  data = JSONClone(initialData);
-  updated = true;
+* Reset database button.
+*/
+export class ResetDatabase extends React.Component {
+render() {
+return (
+<button className="btn btn-default" type="button" onClick={() => {
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/resetdb');
+xhr.addEventListener('load', function() {
+window.alert("Database reset! Refreshing the page now...");
+document.location.reload(false);
+});
+xhr.send();
+}}>Reset Mock DB</button>
+);
 }
-module.exports.resetDatabase = resetDatabase;
+}
+
 
 // Periodically updates the database on the hard drive
 // when changed.
